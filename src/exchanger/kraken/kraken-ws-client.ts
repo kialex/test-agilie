@@ -17,7 +17,7 @@ export class KrakenWsClient {
    * @param {string} url Kraken WS host
    * @return {Promise<rateListType>}
    */
-  public connect(url: string): Promise<rateListType> {
+  public connect(url: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.wsClient = new WebSocket(url);
       const waitingInterval = setInterval(() => {
@@ -50,7 +50,7 @@ export class KrakenWsClient {
           this.isReady = true;
           clearTimeout(breakTimeout);
           clearInterval(waitingInterval);
-          resolve(this.rates as rateListType);
+          resolve();
           this.logger.log(
             '|====================  KRAKEN WS CLIENT IS READY  ==========================|',
           );
@@ -77,6 +77,8 @@ export class KrakenWsClient {
    * @return {rateListType}
    */
   public getRates(): rateListType {
+    if (!this.isReady) throw Error('Not connected yet');
+
     return this.rates as rateListType;
   }
 
