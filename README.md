@@ -15,7 +15,7 @@ Before starting, make sure you have at least those components on your workstatio
 
 ## Quick start
 
-Run docker & run next command to run PostgreSQL
+Run docker to run PostgreSQL
 ```bash
 docker-compose up
 ```
